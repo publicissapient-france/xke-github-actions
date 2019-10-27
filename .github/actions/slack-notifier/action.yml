@@ -1,0 +1,7 @@
+name: 'slack Notifier'
+description: 'Notify slack with a provided message'
+inputs:
+outputs:
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
