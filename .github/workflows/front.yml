@@ -3,9 +3,8 @@ name: XKE-Github-Actions-front
 on:
 
 jobs:
-  test:
-  docker_build:
-  docker_publish:
-  notify_slack:
-
-
+  # Ex01: Build with docker image or native VM
+  # Ex02: Build docker image
+  # Ex03: Publish the image in docker registry
+  # Ex04: Add slack notification
+  # Ex05: Add matrix strategy to build upon node 8 and 10
