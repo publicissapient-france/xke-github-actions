@@ -1,0 +1,23 @@
+name: 'slack Notifier'
+description: 'Notify slack with a provided message'
+inputs:
+  MESSAGE:
+    description: 'Message to send to slack'
+    required: true
+    default: 'Hello World!'
+  SLACK_TOKEN: 
+    description: 'Token to connect to slack'
+    required: true
+  SLACK_BOT:
+    description: 'Bot name to display'
+    required: false
+    default: 'actions-bot'
+  SLACK_CHANNEL:
+    description: 'Channel where the message will be sent. Note that the bot should have access to this channel'
+    required: false
+    default: '#xke_github_actions'
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+  args:
+    - ${{ inputs.MESSAGE }}

@@ -1,11 +1,79 @@
-name: XKE-Github-Actions-front
+name: solutions-front
 
 on:
+  push:
+    branches:
+      - solutions
 
 jobs:
-  test:
-  docker_build:
-  docker_publish:
-  notify_slack:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
 
+# Print all github context
+    - name: Print GitHub Context # Debug step
+      env:
+        GITHUB_CONTEXT: ${{ toJson(github) }}
+      run: echo "$GITHUB_CONTEXT"
 
+# Ex01: Build with docker image
+    - name: Use nodejs 8-alpine image to build
+      uses: docker://node:8-alpine
+    - name: npm install, test & build
+      run: |
+        npm install
+        npm test
+        npm run build
+
+# Ex01: Build with native npm
+#     - name: Use Node.js '8.x'
+#       uses: actions/setup-node@v1
+#       with:
+#         node-version: '8.x'
+#     - name: npm install, build, and test
+#       run: |
+#         npm install
+#         npm test
+#         npm run build
+
+# Ex02: Build docker image
+    - name: Build docker image
+      id: docker_build
+      env:
+        DOCKER_REGISTRY: 'docker.io'
+        DOCKER_NAMESPACE: 'xebxke'
+        DOCKER_IMAGE: 'solutions-cactus'
+        BRANCH: ${{ github.ref }}
+      run: |
+        docker build -t $DOCKER_REGISTRY/$DOCKER_NAMESPACE/$DOCKER_IMAGE:${BRANCH#refs/heads/}-$GITHUB_SHA .
+        echo "::set-output name=docker_tag::$DOCKER_REGISTRY/$DOCKER_NAMESPACE/$DOCKER_IMAGE:${BRANCH#refs/heads/}-$GITHUB_SHA"
+
+# Ex03: Publish the image in docker registry
+    - name: Log in to docker registry
+      env:
+        DOCKER_REGISTRY: 'docker.io'
+      run: echo ${{ secrets.SOLUTIONS_DOCKERHUB_PASSWORD }} | docker login $DOCKER_REGISTRY --username ${{ secrets.SOLUTIONS_DOCKERHUB_USERNAME }} --password-stdin
+
+    - name: Publish docker image
+      run: docker push ${{ steps.docker_build.outputs.docker_tag }}
+
+# Ex04: Add slack notification
+    - name: Notify Slack on failure
+      if: failure()
+      uses: ./.github/actions/slack-notifier
+      env:
+        SLACK_CHANNEL: "#xke-github-actions"
+        SLACK_BOT: "githubActionRulz"
+        SLACK_TOKEN: ${{ secrets.SLACK_TOKEN }}
+      with:
+        message: ":troll: ${{ github.actor }} pushed crap on ${{ github.repository }}/${{ github.ref }}"
+    - name: Notify Slack on success
+      if: success()
+      uses: ./.github/actions/slack-notifier
+      env:
+        SLACK_CHANNEL: "#xke-github-actions"
+        SLACK_BOT: "githubActionRulz"
+        SLACK_TOKEN: ${{ secrets.SLACK_TOKEN }}
+      with:
+        message: "${{ github.actor }} published a new image : ${{ steps.docker_build.outputs.docker_tag }}"
