@@ -32,4 +32,4 @@ jobs:
       - uses: actions/checkout@v1
       - name: build image docker
         run: |
-          docker build -t xbexke/cactus/${$GITHUB_REF#/ref/head/}/$GITHUB_SHA .
+          docker build -t xbexke/cactus/${{ ${{ GITHUB_REF }}#/ref/head/ }}/${{ GITHUB_SHA }} .
