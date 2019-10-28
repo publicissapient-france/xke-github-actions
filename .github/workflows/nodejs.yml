@@ -7,6 +7,10 @@ jobs:
 
     runs-on: ubuntu-latest
 
+    env:
+      BRANCH: ${{ github.ref }}
+      COMMIT: ${{ github.sha }}
+
     strategy:
       matrix:
         node-version: [8.x]
@@ -22,17 +26,6 @@ jobs:
         npm install
         npm test
         npm run build
-
-
-  docker:
-
-    runs-on: ubuntu-latest
-    env:
-      BRANCH: ${{ github.ref }}
-      COMMIT: ${{ github.sha }}
-
-    steps:
-      - uses: actions/checkout@v1
-      - name: build image docker
-        run: |
-          docker build -t xbexke/cactus/${BRANCH#/ref/head/}/$COMMIT .
+    - name: build image docker
+      run: |
+        docker build -t xbexke/cactus/${BRANCH#/ref/head/}/$COMMIT .
