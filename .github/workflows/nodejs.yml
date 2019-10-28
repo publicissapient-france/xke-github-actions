@@ -1,4 +1,4 @@
-name: Node CI
+name: CI-franck-cussac
 
 on: [push]
 
@@ -22,3 +22,14 @@ jobs:
         npm install
         npm test
         npm run build
+
+
+  docker:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v1
+      - name: build image docker
+        run: |
+          docker build -t xbexke/cactus/${$GITHUB_REF#/ref/head/}/$GITHUB_SHA .
