@@ -27,9 +27,13 @@ jobs:
   docker:
 
     runs-on: ubuntu-latest
+    env:
+      BRANCH: ${{ github.ref }}
+      COMMIT: ${{ github.sha }}
 
     steps:
       - uses: actions/checkout@v1
       - name: build image docker
         run: |
-          docker build -t xbexke/cactus/${{ ${{ GITHUB_REF }}#/ref/head/ }}/${{ GITHUB_SHA }} .
+          echo $GITHUB_SHA
+          docker build -t xbexke/cactus/${BRANCH#/ref/head/}/$COMMIT .
