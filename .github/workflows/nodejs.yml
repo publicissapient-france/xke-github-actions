@@ -28,5 +28,5 @@ jobs:
         npm run build
     - name: build image docker
       run: |
-        docker build -t xbexke/cactus:${BRANCH#/ref/head/}-$COMMIT .
-        docker push xbexke/cactus:${BRANCH#/ref/head/}-$COMMIT
+        docker build -t xbexke/cactus:${BRANCH#ref/head/}-$COMMIT .
+        docker push xbexke/cactus:${BRANCH#ref/head/}-$COMMIT
