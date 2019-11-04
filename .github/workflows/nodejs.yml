@@ -27,6 +27,7 @@ jobs:
         npm test
         npm run build
     - name: build image docker
+      id: docker_build
       run: |
         docker build -t xebxke/cactus:${BRANCH#refs/heads/}-$COMMIT .
         echo "::set-output name=docker_tag::xebxke/cactus:${BRANCH#refs/heads/}-$COMMIT"
