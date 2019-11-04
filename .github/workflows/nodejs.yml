@@ -27,7 +27,7 @@ jobs:
         npm test
         npm run build
     - name: build image docker
-      run: docker build -t xbexke/cactus:${BRANCH#refs/heads/}-$COMMIT .
+      run: docker build -t xebxke/cactus:${BRANCH#refs/heads/}-$COMMIT .
 
     - name: Log in to docker registry
       env:
@@ -35,4 +35,4 @@ jobs:
       run: echo ${{ secrets.SOLUTIONS_DOCKERHUB_PASSWORD }} | docker login $DOCKER_REGISTRY --username ${{ secrets.SOLUTIONS_DOCKERHUB_USERNAME }} --password-stdin
 
     - name: Publish docker image
-      run: docker push xbexke/cactus:${BRANCH#refs/heads/}-$COMMIT
+      run: docker push xebxke/cactus:${BRANCH#refs/heads/}-$COMMIT
