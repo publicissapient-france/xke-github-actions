@@ -36,3 +36,6 @@ jobs:
 
     - name: Publish docker image
       run: docker push xebxke/cactus:${BRANCH#refs/heads/}-$COMMIT
+
+    - name: notify on slack
+      uses: actions/slack-notifier@{BRANCH#refs/heads/}
