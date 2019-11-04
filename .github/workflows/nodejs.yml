@@ -37,5 +37,12 @@ jobs:
     - name: Publish docker image
       run: docker push xebxke/cactus:${BRANCH#refs/heads/}-$COMMIT
 
-    - name: notify on slack
+    - name: Notify Slack on success
+      if: success()
       uses: ./.github/actions/slack-notifier
+      env:
+        SLACK_CHANNEL: "#xke-github-actions"
+        SLACK_BOT: "githubActionRulz"
+        SLACK_TOKEN: ${{ secrets.SLACK_TOKEN }}
+      with:
+        message: "${{ github.actor }} published a new image : xebxke/cactus:${BRANCH#refs/heads/}-$COMMIT"
