@@ -27,7 +27,9 @@ jobs:
         npm test
         npm run build
     - name: build image docker
-      run: docker build -t xebxke/cactus:${BRANCH#refs/heads/}-$COMMIT .
+      run: |
+      docker build -t xebxke/cactus:${BRANCH#refs/heads/}-$COMMIT .
+      echo ::set-output name=docker_tag::xebxke/cactus:${BRANCH#refs/heads/}-$COMMIT"
 
     - name: Log in to docker registry
       env:
@@ -45,4 +47,4 @@ jobs:
         SLACK_BOT: "githubActionRulz"
         SLACK_TOKEN: ${{ secrets.SLACK_TOKEN }}
       with:
-        message: "${{ github.actor }} published a new image : xebxke/cactus:${BRANCH#refs/heads/}-$COMMIT"
+        message: "${{ github.actor }} published a new image : ${{ steps.docker_build.outputs.docker_tag }}"
