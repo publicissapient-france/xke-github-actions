@@ -28,8 +28,8 @@ jobs:
         npm run build
     - name: build image docker
       run: |
-      docker build -t xebxke/cactus:${BRANCH#refs/heads/}-$COMMIT .
-      echo "::set-output name=docker_tag::xebxke/cactus:${BRANCH#refs/heads/}-$COMMIT"
+        docker build -t xebxke/cactus:${BRANCH#refs/heads/}-$COMMIT .
+        echo "::set-output name=docker_tag::xebxke/cactus:${BRANCH#refs/heads/}-$COMMIT"
 
     - name: Log in to docker registry
       env:
