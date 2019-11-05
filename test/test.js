@@ -5,6 +5,7 @@ describe('dumb-test', function () {
     let x = 1;
     let y = 1;
     let sum = x + y;
-    expect(sum).to.be.equal(2);
+    let expected = 2
+    expect(sum).to.be.equal(expected);
   });
 });
