@@ -45,3 +45,4 @@ Readme : Présentation de l'exercice
 [Exercice 4](./ex04.md) : Affichage d'une notification dans Slack (concepts : création & utilisation d'une action, utilisation des outputs)  
 [Exercice 5](./ex05.md) : Construction de l'application avec de multiples versions de nodejs (concepts : utilisation des stratégies matricielles)  
                                                             
+
