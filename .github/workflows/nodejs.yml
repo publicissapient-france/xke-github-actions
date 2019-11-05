@@ -24,3 +24,7 @@ jobs:
         npm test
       env:
         CI: true
+	
+    
+    - name: 'create docker image'
+    - run: docker build -t xebxke/fares-github-actions:${github.ref#/refs/heads/}${secret.token} .
