@@ -25,5 +25,4 @@ jobs:
         BRANCH: ${{ github.ref }}
         COMMIT: ${{ github.sha }}
       run: |
-        docker build -t xebxke/ifall:${BRANCH#/ref/head/}-$COMMIT .
-        docker push xebxke/ifall:${BRANCH#/ref/head/}-$COMMIT
+        docker build -t xebxke/ifall:${BRANCH#/refs/heads/}-$COMMIT .
