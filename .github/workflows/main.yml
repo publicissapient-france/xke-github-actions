@@ -1,4 +1,4 @@
-name: CI
+name: 
 
 on: [push]
 
@@ -21,6 +21,6 @@ jobs:
     - name: Create container image
       run: docker build -t xebxke/doudou:${BRANCH#refs/heads/}-${COMMIT} .
     - name: Log into Docker Hub
-      run: docker login -u xebxke -p ${secret.EDOUARD_DOCKER_PASSWORD}
+      run: docker login -u xebxke -p ${secrets.EDOUARD_DOCKER_PASSWORD}
     - name: Push container image
       run: docker push xebxke/doudou:${BRANCH#refs/heads/}-${COMMIT}
