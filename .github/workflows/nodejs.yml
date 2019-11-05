@@ -1,9 +1,6 @@
 name: Node CI
 
-on:
-  push:
-    branches:
-      - varrocen
+on: [push]
 
 jobs:
   build:
