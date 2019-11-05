@@ -12,7 +12,7 @@ jobs:
 
     env:
       BRANCH: ${{ github.ref }}
-      COMMIT: ${{ secret.token }}
+      COMMIT: ${{ github.sha }}
 
     strategy:
       matrix:
