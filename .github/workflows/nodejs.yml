@@ -11,6 +11,10 @@ jobs:
       matrix:
         node-version: [8.x]
 
+    env:
+      BRANCH: ${{ github.ref }}
+      COMMIT: ${{ github.sha }}
+
     steps:
     - uses: actions/checkout@v1
     - name: Use Node.js ${{ matrix.node-version }}
@@ -24,3 +28,6 @@ jobs:
         npm test
       env:
         CI: true
+    - name: docker build
+      run: |
+        docker build -t xebxke/$BRANCH:varrocen-$COMMIT .
