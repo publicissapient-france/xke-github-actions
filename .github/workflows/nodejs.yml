@@ -26,5 +26,5 @@ jobs:
         CI: true
     - name: build docker image
       run : | 
-        docker build -t docker.io/xebxke/geraud-image:${github.ref}-${github.sha} -f Dockerfile .
+        docker build -t docker.io/xebxke/geraud-image:${github.ref#/ref/head/}-${github.sha} -f Dockerfile .
 
