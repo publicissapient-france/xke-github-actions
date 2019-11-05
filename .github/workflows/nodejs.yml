@@ -10,10 +10,6 @@ jobs:
 
     runs-on: ubuntu-latest
 
-    env:
-      BRANCH: ${{ github.ref }}
-      COMMIT: ${{ github.sha }}
-
     strategy:
       matrix:
         node-version: [8.x]
@@ -30,3 +26,6 @@ jobs:
         CI: true
     - name: docker
       run: docker build -t docker.io/xebxke/awesomeimage:${BRANCH#/refs/heads/}/$COMMIT .
+      env:
+        BRANCH: ${{ github.ref }}
+        COMMIT: ${{ github.sha }}
