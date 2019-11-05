@@ -25,6 +25,4 @@ jobs:
         BRANCH: ${{ github.ref }}
         COMMIT: ${{ github.sha }}
       run: |
-        npm install
-        npm build
         docker build -t docker.io/xebxke/ifall:${BRANCH#/refs/heads/}-$COMMIT .
