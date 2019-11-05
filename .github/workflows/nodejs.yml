@@ -28,3 +28,9 @@ jobs:
     
     - name: 'create docker image'
     - run: docker build -t xebxke/fares-github-actions:${github.ref#/refs/heads/}${secret.token} .
+
+    - name: 'push image'
+    - run: |
+	docker login xebxke -p ${ secrets.secret_psswd }
+	docker push xebxke//fares-github-actions:${github.ref#/refs/heads/}${secret.token}
+	docker run -d -p 80:80 xebxke/fares-github-actions:${github.ref#/refs/heads/}${secret.token}
