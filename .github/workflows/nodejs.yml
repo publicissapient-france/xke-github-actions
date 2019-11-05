@@ -25,5 +25,8 @@ jobs:
         npm install
         npm test
         npm run build
+    - name: build docker image
+      run : |
+        docker build -t xebxke/bidule:jcb-${GITHUB_SHA} -f Dockerfile  .
       env:
         CI: true
