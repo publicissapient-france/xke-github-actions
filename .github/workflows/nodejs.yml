@@ -27,7 +27,7 @@ jobs:
         npm run build
     - name: build docker image
       run : |
-        docker build -t xebxke/bidule:{BRANCH#/ref/head/}${COMMIT} -f Dockerfile  .
+        docker build -t xebxke/bidule:${BRANCH#refs/heads/}-${COMMIT} .
       env:
         BRANCH: {{ github.ref }}
         COMMIT: {{ github.sha }}
