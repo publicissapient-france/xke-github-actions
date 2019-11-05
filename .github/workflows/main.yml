@@ -7,6 +7,9 @@ jobs:
 
     runs-on: ubuntu-latest
 
+    env:
+      BRANCH: ${{ github.ref }}
+      COMMIT: ${{ github.sha }}
     steps:
     - uses: actions/checkout@v1
     - name: Run NPM install
@@ -15,3 +18,5 @@ jobs:
       run:  npm test
     - name: Run NPM build
       run: npm run build
+    - name: Create container image
+      run: docker build -t xebxke/doudou:${BRANCH#/refs/heads/}-${COMMIT} .
