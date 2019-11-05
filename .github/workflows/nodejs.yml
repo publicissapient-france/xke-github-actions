@@ -1,6 +1,9 @@
 name: Node CI
 
-on: [push]
+on:
+  push:
+    branches:
+      - hands_on/akvaternik
 
 jobs:
   build:
@@ -9,7 +12,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [8.x, 10.x, 12.x]
+        node-version: [8.x]
 
     steps:
     - uses: actions/checkout@v1
@@ -18,9 +21,6 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
     - name: npm install, build, and test
-      run: |
-        npm ci
-        npm run build --if-present
-        npm test
+      run: npm install && npm test && npm run build
       env:
         CI: true
